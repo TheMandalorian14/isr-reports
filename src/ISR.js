@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import SiteInformation from './Components/SiteInformation';
+import FilteredComponentsTable from './Components/FilteredComponentsTable';
 
 const Isr = () => {
   const [data, setData] = useState([]);
@@ -16,6 +17,11 @@ const Isr = () => {
           // Add any other parameters or headers if needed
         });
         setData(response.data);
+
+        // Extract the catcode from the first row
+        const defaultCatCode = response.data.length > 0 ? response.data[0].catcode : null;
+        console.log('Default CatCode:', defaultCatCode); // Log the defaultCatCode
+        setSelectedCatCode(defaultCatCode);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -23,6 +29,13 @@ const Isr = () => {
 
     fetchData();
   }, [siteuid, rpauid]);
+
+  useEffect(() => {
+    // Call handleClick with the defaultCatCode to update filtered components
+    if (selectedCatCode) {
+      handleClick(selectedCatCode);
+    }
+  }, [selectedCatCode]); // Run this effect whenever selectedCatCode changes
 
   const handleClick = async (catCode) => {
     console.log('Row clicked! CatCode:', catCode);
@@ -32,7 +45,8 @@ const Isr = () => {
     const newFilteredComponents = data
       .filter(item => item.catcode === catCode)
       .reduce((acc, item) => acc.concat(item.components), []);
-
+    
+    console.log('Filtered Components:', newFilteredComponents); // Log the newFilteredComponents
     setFilteredComponents(newFilteredComponents);
   };
 
@@ -59,32 +73,7 @@ const Isr = () => {
 
       {/* Display filtered components in a new table */}
       <h2>Filtered Components</h2>
-      {Array.isArray(filteredComponents) && filteredComponents.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Quality Rating</th>
-              <th>Mission Rating</th>
-              <th>QIC</th>
-              <th>Weight</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredComponents.map((component, index) => (
-              <tr key={index}>
-                <td>{component.desc}</td>
-                <td>{component.qrating}</td>
-                <td>{component.frating}</td>
-                <td>{component.qic}</td>
-                <td>{component.weight}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>No filtered components available</p>
-      )}
+      <FilteredComponentsTable filteredComponents={filteredComponents} />
     </div>
   );
 };
