@@ -5,7 +5,8 @@ import SiteInformation from './Components/SiteInformation';
 
 const Isr = () => {
   const [data, setData] = useState([]);
-  const [selectedCatCode, setSelectedCatCode] = useState(null); // State to store the selected CatCode
+  const [selectedCatCode, setSelectedCatCode] = useState(null);
+  const [filteredComponents, setFilteredComponents] = useState([]);
   const { siteuid, rpauid } = useParams();
 
   useEffect(() => {
@@ -23,10 +24,16 @@ const Isr = () => {
     fetchData();
   }, [siteuid, rpauid]);
 
-  const handleClick = (catCode) => {
-    // Handle click event, you can do something with the selected CatCode
+  const handleClick = async (catCode) => {
     console.log('Row clicked! CatCode:', catCode);
     setSelectedCatCode(catCode);
+
+    // Filter components based on the selected CatCode's parent catcode
+    const newFilteredComponents = data
+      .filter(item => item.catcode === catCode)
+      .reduce((acc, item) => acc.concat(item.components), []);
+
+    setFilteredComponents(newFilteredComponents);
   };
 
   return (
@@ -44,10 +51,39 @@ const Isr = () => {
           MissionCost={data.map((item) => item.missioncost)}
           Q1={data.map((item) => item.q1)}
           Q2={data.map((item) => item.q2)}
-          onClickRow={handleClick} // Pass the handleClick function to SiteInformation
+          onClickRow={handleClick}
         />
       ) : (
         <p>Loading...</p>
+      )}
+
+      {/* Display filtered components in a new table */}
+      <h2>Filtered Components</h2>
+      {Array.isArray(filteredComponents) && filteredComponents.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Quality Rating</th>
+              <th>Mission Rating</th>
+              <th>QIC</th>
+              <th>Weight</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredComponents.map((component, index) => (
+              <tr key={index}>
+                <td>{component.desc}</td>
+                <td>{component.qrating}</td>
+                <td>{component.frating}</td>
+                <td>{component.qic}</td>
+                <td>{component.weight}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No filtered components available</p>
       )}
     </div>
   );

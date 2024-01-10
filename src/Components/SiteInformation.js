@@ -1,5 +1,5 @@
 import React from 'react';
-import './SiteInformation.css'; // Import a separate CSS file for styling
+import './SiteInformation.css';
 
 const SiteInformation = ({
   SiteName,
@@ -12,10 +12,10 @@ const SiteInformation = ({
   MissionCost,
   Q1,
   Q2,
-  onClickRow, // Add onClickRow prop
+  onClickRow, // Pass the onClickRow function as a prop
 }) => {
   const handleClick = (catCode) => {
-    // Call the onClickRow prop with the clicked CatCode
+    // Handle click event and pass the clicked CatCode to the parent component
     onClickRow(catCode);
   };
 
@@ -38,7 +38,7 @@ const SiteInformation = ({
           <tr
             key={index}
             title="Please click to change the Cat Code"
-            onClick={() => handleClick(CatCode[index])} // Pass the CatCode to handleClick
+            onClick={() => handleClick(CatCode[index])} // Pass the clicked CatCode to handleClick
             className="clickable-row"
             style={{ cursor: 'pointer' }}
           >
