@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import SiteInformation from './Components/SiteInformation';
 
 const Isr = () => {
   const [data, setData] = useState([]);
+  const [selectedCatCode, setSelectedCatCode] = useState(null); // State to store the selected CatCode
   const { siteuid, rpauid } = useParams();
 
   useEffect(() => {
@@ -22,36 +23,31 @@ const Isr = () => {
     fetchData();
   }, [siteuid, rpauid]);
 
+  const handleClick = (catCode) => {
+    // Handle click event, you can do something with the selected CatCode
+    console.log('Row clicked! CatCode:', catCode);
+    setSelectedCatCode(catCode);
+  };
+
   return (
     <div>
       <h1>Welcome to GROGU's REACT</h1>
       {Array.isArray(data) && data.length > 0 ? (
-        data.map((item) => (
-          <div key={item.catcode}>
-            <p>Site Name: {item.siteName}</p>
-            <p>Facility Number: {item.facNo}</p>
-            <p>Catcode: {item.catcode}</p>
-            <p>Description: {item.desc}</p>
-            <p>Mission: {item.mission}</p>
-            <p>Quality: {item.qual}</p>
-            <p>QIC: {item.qic}</p>
-            <p>Mission Cost: {item.missioncost}</p>
-            <p>Q1: {item.q1}</p>
-            <p>Q2: {item.q2}</p>
-
-            {item.components.map((component) => (
-              <div key={component.desc}>
-                <p>Component Description: {component.desc}</p>
-                <p>Quality Rating: {component.qrating}</p>
-                <p>Mission Rating: {component.frating}</p>
-                <p>QIC: {component.qic}</p>
-                <p>Weight: {component.weight}</p>
-              </div>
-            ))}
-          </div>
-        ))
+        <SiteInformation
+          SiteName={data.map((item) => item.siteName)}
+          FacilityNumber={data.map((item) => item.facNo)}
+          CatCode={data.map((item) => item.catcode)}
+          Description={data.map((item) => item.catcode)}
+          Mission={data.map((item) => item.mission)}
+          Quality={data.map((item) => item.qual)}
+          QIC={data.map((item) => item.qic)}
+          MissionCost={data.map((item) => item.missioncost)}
+          Q1={data.map((item) => item.q1)}
+          Q2={data.map((item) => item.q2)}
+          onClickRow={handleClick} // Pass the handleClick function to SiteInformation
+        />
       ) : (
-        <p>No data available</p>
+        <p>Loading...</p>
       )}
     </div>
   );
