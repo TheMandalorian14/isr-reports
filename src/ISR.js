@@ -20,7 +20,6 @@ const Isr = () => {
 
         // Extract the catcode from the first row
         const defaultCatCode = response.data.length > 0 ? response.data[0].catcode : null;
-        console.log('Default CatCode:', defaultCatCode); // Log the defaultCatCode
         setSelectedCatCode(defaultCatCode);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -38,7 +37,6 @@ const Isr = () => {
   }, [selectedCatCode]); // Run this effect whenever selectedCatCode changes
 
   const handleClick = async (catCode) => {
-    console.log('Row clicked! CatCode:', catCode);
     setSelectedCatCode(catCode);
 
     // Filter components based on the selected CatCode's parent catcode
@@ -46,7 +44,6 @@ const Isr = () => {
       .filter(item => item.catcode === catCode)
       .reduce((acc, item) => acc.concat(item.components), []);
     
-    console.log('Filtered Components:', newFilteredComponents); // Log the newFilteredComponents
     setFilteredComponents(newFilteredComponents);
   };
 

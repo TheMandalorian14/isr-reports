@@ -23,16 +23,15 @@ const SiteInformation = ({
     <table className="site-information-table">
       <tbody>
         <tr>
-          <th>Site Name:</th>
-          <th>Facility Number:</th>
-          <th>Catcode:</th>
-          <th>Description:</th>
-          <th>Mission:</th>
-          <th>Quality:</th>
-          <th>QIC:</th>
-          <th>Mission Cost:</th>
-          <th>Q1:</th>
-          <th>Q2:</th>
+          <th>Catcode</th>
+          <th>Description</th>
+          <th>Mission Rating</th>
+
+          <th>Mission Cost</th>
+          <th>Quality Rating</th>
+          <th>Cost to Q1</th>
+          <th>Cost to Q2</th>
+          <th>Total Cost</th>
         </tr>
         {SiteName.map((site, index) => (
           <tr
@@ -42,16 +41,17 @@ const SiteInformation = ({
             className="clickable-row"
             style={{ cursor: 'pointer' }}
           >
-            <td>{site}</td>
-            <td>{FacilityNumber[index]}</td>
             <td>{CatCode[index]}</td>
             <td>{Description[index]}</td>
             <td>{Mission[index]}</td>
-            <td>{Quality[index]}</td>
-            <td>{QIC[index]}</td>
+
             <td>{MissionCost[index]}</td>
+
+            <td>{Quality[index]}</td>
+            
             <td>{Q1[index]}</td>
             <td>{Q2[index]}</td>
+            <td>{QIC[index]}</td>
           </tr>
         ))}
       </tbody>

@@ -28,7 +28,7 @@ const FilteredComponentsTable = ({ filteredComponents }) => {
           </tbody>
         </table>
       ) : (
-        <p>No filtered components available</p>
+        <p>Loading...</p>
       )}
     </div>
   );
