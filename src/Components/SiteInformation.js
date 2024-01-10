@@ -18,6 +18,12 @@ const SiteInformation = ({
     // Handle click event and pass the clicked CatCode to the parent component
     onClickRow(catCode);
   };
+  const formatDollars = (value) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(value);
+  };
 
   return (
     <table className="site-information-table">
@@ -45,13 +51,13 @@ const SiteInformation = ({
             <td>{Description[index]}</td>
             <td>{Mission[index]}</td>
 
-            <td>{MissionCost[index]}</td>
+            <td>{formatDollars(MissionCost[index])}</td>
 
             <td>{Quality[index]}</td>
             
-            <td>{Q1[index]}</td>
-            <td>{Q2[index]}</td>
-            <td>{QIC[index]}</td>
+            <td>{formatDollars(Q1[index])}</td>
+            <td>{formatDollars(Q2[index])}</td>
+            <td>{formatDollars(QIC[index])}</td>
           </tr>
         ))}
       </tbody>
