@@ -4,7 +4,6 @@ import { formatDollars, getMissionRatingStyle, getQualityRatingStyle } from './t
 
 const SiteInformation = ({
   SiteName,
-  FacilityNumber,
   CatCode,
   Description,
   Mission,
