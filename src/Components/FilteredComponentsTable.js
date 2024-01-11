@@ -1,7 +1,10 @@
 import React from 'react';
 import './FilteredComponentsTable.css';
+import { getMissionRatingStyle } from './tableStyling';
 
 const FilteredComponentsTable = ({ filteredComponents }) => {
+
+
   return (
     <div>
       {Array.isArray(filteredComponents) && filteredComponents.length > 0 ? (
@@ -20,7 +23,8 @@ const FilteredComponentsTable = ({ filteredComponents }) => {
               <tr key={index}>
                 <td>{component.desc}</td>
                 <td>{component.qrating}</td>
-                <td>{component.frating}</td>
+                <td style={getMissionRatingStyle(component.frating)}>
+                  {component.frating}</td>
                 <td>{component.qic}</td>
                 <td>{component.weight}</td>
               </tr>

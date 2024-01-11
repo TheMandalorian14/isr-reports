@@ -1,0 +1,58 @@
+/* Add this to your existing CSS or create a new CSS file */
+body{
+  background-color: #283F4D;
+}
+
+h1{
+  color: white;
+  font-size: 36px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+}
+.custom-button {
+  margin-top: 20px; /* Add margin to the top of the button for separation */
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+h4{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: white;
+}
+/* Styles for the top and bottom stationary bars */
+.stationary-bar {
+  background-color: #000; /* Background color of the bar */
+  color: #fff; /* Text color */
+  padding: 10px; /* Padding to add space around the text */
+  text-align: center; /* Center the text horizontally */
+  position: fixed; /* Fix the position of the bar */
+  width: 100%; /* Make the bar span the entire width of the viewport */
+}
+
+/* Styles for the top bar */
+.top-bar {
+  top: 0; /* Position at the top of the viewport */
+}
+
+/* Styles for the bottom bar */
+.bottom-bar {
+  bottom: 0; /* Position at the bottom of the viewport */
+}
+
+/* Styles for the content area */
+.content-area {
+  margin-top: 40px; /* Adjust the top margin to accommodate the top stationary bar */
+  margin-bottom: 40px; /* Adjust the bottom margin to accommodate the bottom stationary bar */
+  max-height: calc(100vh - 80px); /* Set the maximum height of the content area (viewport height - 80px for both bars) */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  margin-left: 20px;
+  margin-right: 5px;
+}
