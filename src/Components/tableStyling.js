@@ -14,12 +14,19 @@ export const getMissionRatingStyle = (value) => {
   };
   
   export const formatDollars = (value) => {
-    return new Intl.NumberFormat('en-US', {
+    const roundedValue = Math.ceil(value);
+  
+    const formattedValue = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
-    }).format(value);
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(roundedValue);
+  
+    return formattedValue.replace(/\.00$/, ''); // Remove the .00 portion
   };
-
+  
+  
   export const getQualityRatingStyle = (value) => {
     if(value === 'Q1'){
       return {backgroundColor: 'green'};

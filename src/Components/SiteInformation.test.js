@@ -27,7 +27,7 @@ describe('SiteInformation Component', () => {
     // Check if each CatCode has a corresponding element with the formatted mission cost
     mockData.CatCode.forEach((catCode, index) => {
       const missionCostFormatted = mockData.MissionCost[index].toLocaleString();
-      const missionCostElements = queryAllByText('$' + missionCostFormatted + '.00');
+      const missionCostElements = queryAllByText('$' + missionCostFormatted);
       expect(missionCostElements).toHaveLength(1);
 
       const missionElements = queryAllByText(mockData.Mission[index]);

@@ -1,4 +1,5 @@
-import React from 'react';
+// SiteInformation.js
+import React, { useState } from 'react';
 import './SiteInformation.css';
 import { formatDollars, getMissionRatingStyle, getQualityRatingStyle } from './tableStyling';
 
@@ -12,11 +13,13 @@ const SiteInformation = ({
   MissionCost,
   Q1,
   Q2,
-  onClickRow, // Pass the onClickRow function as a prop
+  onClickRow,
 }) => {
-  const handleClick = (catCode) => {
-    // Handle click event and pass the clicked CatCode to the parent component
+  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
+
+  const handleClick = (catCode, index) => {
     onClickRow(catCode);
+    setSelectedRowIndex(index); // Update the selected row index
   };
 
   return (
@@ -36,8 +39,8 @@ const SiteInformation = ({
           <tr
             key={index}
             title="Please click to change the Cat Code"
-            onClick={() => handleClick(CatCode[index])} // Pass the clicked CatCode to handleClick
-            className="clickable-row"
+            onClick={() => handleClick(CatCode[index], index)}
+            className={`clickable-row ${selectedRowIndex === index ? 'selected-row' : ''}`}
             style={{ cursor: 'pointer' }}
           >
             <td>{CatCode[index]}</td>
@@ -45,7 +48,6 @@ const SiteInformation = ({
             <td>{formatDollars(MissionCost[index])}</td>
             <td style={getMissionRatingStyle(Mission[index])}>{Mission[index]}</td>
             <td style={getQualityRatingStyle(Quality[index])}>{Quality[index]}</td>
-            
             <td>{formatDollars(Q1[index])}</td>
             <td>{formatDollars(Q2[index])}</td>
             <td>{formatDollars(QIC[index])}</td>
