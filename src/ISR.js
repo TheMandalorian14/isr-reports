@@ -21,7 +21,6 @@ const Isr = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`https://grogu/isr/rest/query?siteuid=${siteuid}&rpauid=${rpauid}`, {
-          // Add any other parameters or headers if needed
         });
         setData(response.data);
 
@@ -87,23 +86,21 @@ const Isr = () => {
         ]);
       });
     }
-  
+    ws_data.push(['']);
     ws_data.push(['', 'Component Ratings For:', selectedCatCode, description]);
     ws_data.push(['']);
-    ws_data.push(['Component Ratings']);
-    ws_data.push(['']);
-    ws_data.push(['ComponentName', 'Rating']);
+    ws_data.push(['Description', 'Quality Rating', 'Mission Rating', 'QIC', 'Weight']);
   
     filteredComponents.forEach(item => {
-      ws_data.push([item.componentName, item.rating]);
+      ws_data.push([item.desc, item.qrating, item.frating, item.qic, item.weight]);
     });
   
     const ws = XLSX.utils.aoa_to_sheet(ws_data);
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
   
-    // Use writeFile method
     XLSX.writeFile(wb, 'ISR_Facility_Component_Rating_Report.xlsx', { bookType: 'xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
   };
+  
   
   
 
