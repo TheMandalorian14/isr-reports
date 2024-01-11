@@ -5,6 +5,8 @@ import './ISR.css';
 import SiteInformation from './Components/SiteInformation';
 import FilteredComponentsTable from './Components/FilteredComponentsTable';
 import Button from './Components/Button';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 const Isr = () => {
   const [data, setData] = useState([]);
@@ -13,7 +15,7 @@ const Isr = () => {
   const [siteName, setSiteName] = useState('');
   const [facilityNumber, setFacilityNumber] = useState('');
   const { siteuid, rpauid } = useParams();
-  const [description, setDesciption] = useState('');
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,11 +25,9 @@ const Isr = () => {
         });
         setData(response.data);
 
-        // Extract the catcode from the first row
         const defaultCatCode = response.data.length > 0 ? response.data[0].catcode : null;
         setSelectedCatCode(defaultCatCode);
 
-        // Extract the siteName from the first row
         const defaultSiteName = response.data.length > 0 ? response.data[0].siteName : '';
         setSiteName(defaultSiteName);
 
@@ -35,8 +35,7 @@ const Isr = () => {
         setFacilityNumber(defaultFacilityNumber);
 
         const defaultDescription = response.data.length > 0 ? response.data[0].desc : '';
-        setDesciption(defaultDescription);
-
+        setDescription(defaultDescription);
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -47,22 +46,66 @@ const Isr = () => {
   }, [siteuid, rpauid]);
 
   useEffect(() => {
-    // Call handleClick with the defaultCatCode to update filtered components
     if (selectedCatCode) {
       handleClick(selectedCatCode);
     }
-  }, [selectedCatCode]); // Run this effect whenever selectedCatCode changes
+  }, [selectedCatCode]);
 
   const handleClick = async (catCode) => {
     setSelectedCatCode(catCode);
 
-    // Filter components based on the selected CatCode's parent catcode
     const newFilteredComponents = data
       .filter(item => item.catcode === catCode)
       .reduce((acc, item) => acc.concat(item.components), []);
     
     setFilteredComponents(newFilteredComponents);
   };
+
+  const exportToExcel = () => {
+    const wb = XLSX.utils.book_new();
+    const ws_data = [
+      ['ISR Facility Component Rating Report'],
+      ['Site:', siteName],
+      ['Facility Number:', facilityNumber],
+      [''],
+    ];
+  
+    if (Array.isArray(data) && data.length > 0) {
+      ws_data.push(['SiteName', 'FacilityNumber', 'CatCode', 'Description', 'Mission', 'Quality', 'QIC', 'MissionCost', 'Q1', 'Q2']);
+      data.forEach(item => {
+        ws_data.push([
+          item.siteName,
+          item.facNo,
+          item.catcode,
+          item.desc,
+          item.mission,
+          item.qual,
+          item.qic,
+          item.missioncost,
+          item.q1,
+          item.q2,
+        ]);
+      });
+    }
+  
+    ws_data.push(['', 'Component Ratings For:', selectedCatCode, description]);
+    ws_data.push(['']);
+    ws_data.push(['Component Ratings']);
+    ws_data.push(['']);
+    ws_data.push(['ComponentName', 'Rating']);
+  
+    filteredComponents.forEach(item => {
+      ws_data.push([item.componentName, item.rating]);
+    });
+  
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+  
+    // Use writeFile method
+    XLSX.writeFile(wb, 'ISR_Facility_Component_Rating_Report.xlsx', { bookType: 'xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  };
+  
+  
 
   return (
     <div>
@@ -88,8 +131,7 @@ const Isr = () => {
         ) : (
           <p>Loading...</p>
         )}
-        <Button label={"Export to Excel"}/>
-        {/* Display filtered components in a new table */}
+        <Button label={"Export to Excel"} onClick={exportToExcel} />
         <h4>Component Ratings For:</h4>
         <h4>{selectedCatCode}: {description}</h4>
         <FilteredComponentsTable filteredComponents={filteredComponents} />
