@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import FilteredComponentsTable from './FilteredComponentsTable'; // Adjust the import path
+import FilteredComponentsTable from './FilteredComponentsTable'; 
 
-// Mock data for testing
+
 const mockFilteredComponents = [
   {
     desc: 'Component 1',
@@ -11,7 +11,7 @@ const mockFilteredComponents = [
     qic: '123',
     weight: '10',
   },
-  // Add more sample data as needed
+
 ];
 
 describe('FilteredComponentsTable Component', () => {
@@ -28,7 +28,7 @@ describe('FilteredComponentsTable Component', () => {
   test('renders table rows with correct data', () => {
     const { getByText } = render(<FilteredComponentsTable filteredComponents={mockFilteredComponents} />);
 
-    // Check if the table rows contain the expected data
+  
     mockFilteredComponents.forEach((component) => {
       expect(getByText(component.desc)).toBeInTheDocument();
       expect(getByText(component.qrating)).toBeInTheDocument();

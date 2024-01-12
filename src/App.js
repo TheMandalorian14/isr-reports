@@ -10,7 +10,6 @@ const App = () => {
           path="/isr/*/:siteuid/:rpauid"
           element={<Isr />}
         />
-        {/* Add other routes as needed */}
       </Routes>
     </Router>
   );

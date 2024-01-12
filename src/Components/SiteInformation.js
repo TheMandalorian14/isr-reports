@@ -1,4 +1,3 @@
-// SiteInformation.js
 import React, { useState } from 'react';
 import './SiteInformation.css';
 import { formatDollars, getMissionRatingStyle, getQualityRatingStyle } from './tableStyling';
@@ -19,7 +18,7 @@ const SiteInformation = ({
 
   const handleClick = (catCode, index) => {
     onClickRow(catCode);
-    setSelectedRowIndex(index); // Update the selected row index
+    setSelectedRowIndex(index); 
   };
 
   return (

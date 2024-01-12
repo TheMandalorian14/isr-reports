@@ -27,32 +27,28 @@ h4{
   line-height: 1.1;
   color: white;
 }
-/* Styles for the top and bottom stationary bars */
 .stationary-bar {
-  background-color: #000; /* Background color of the bar */
-  color: #fff; /* Text color */
-  padding: 10px; /* Padding to add space around the text */
-  text-align: center; /* Center the text horizontally */
-  position: fixed; /* Fix the position of the bar */
-  width: 100%; /* Make the bar span the entire width of the viewport */
+  background-color: #000; 
+  color: #fff; 
+  padding: 10px; 
+  text-align: center; 
+  position: fixed; 
+  width: 100%; 
 }
 
-/* Styles for the top bar */
 .top-bar {
-  top: 0; /* Position at the top of the viewport */
+  top: 0; 
 }
 
-/* Styles for the bottom bar */
 .bottom-bar {
-  bottom: 0; /* Position at the bottom of the viewport */
+  bottom: 0; 
 }
 
-/* Styles for the content area */
 .content-area {
-  margin-top: 40px; /* Adjust the top margin to accommodate the top stationary bar */
-  margin-bottom: 40px; /* Adjust the bottom margin to accommodate the bottom stationary bar */
-  max-height: calc(100vh - 80px); /* Set the maximum height of the content area (viewport height - 80px for both bars) */
-  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  margin-top: 40px; 
+  margin-bottom: 40px; 
+  max-height: calc(100vh - 80px); 
+  overflow-y: auto; 
   margin-left: 20px;
   margin-right: 5px;
 }

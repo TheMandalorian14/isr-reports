@@ -9,7 +9,6 @@ export const getMissionRatingStyle = (value) => {
     } else if (value === 'AMBER' || value === 'F2') {
       return { backgroundColor: 'yellow' };
     }
-    // Default style
     return {};
   };
   
@@ -23,7 +22,7 @@ export const getMissionRatingStyle = (value) => {
       maximumFractionDigits: 0,
     }).format(roundedValue);
   
-    return formattedValue.replace(/\.00$/, ''); // Remove the .00 portion
+    return formattedValue.replace(/\.00$/, ''); 
   };
   
   

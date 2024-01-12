@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Button from './Button'; // Adjust the import path
+import Button from './Button'; 
 
 describe('Button Component', () => {
   test('renders button with correct label', () => {
