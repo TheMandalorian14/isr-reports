@@ -44,11 +44,16 @@ h4{
   bottom: 0; 
 }
 
+
+
+
 .content-area {
   margin-top: 40px; 
+  display: block;
   margin-bottom: 40px; 
-  max-height: calc(100vh - 80px); 
   overflow-y: auto; 
   margin-left: 20px;
   margin-right: 5px;
 }
+
+

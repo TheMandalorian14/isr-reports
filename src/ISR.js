@@ -7,6 +7,7 @@ import FilteredComponentsTable from './Components/FilteredComponentsTable';
 import Button from './Components/Button';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import Logo from './images/isrpageheader.png';
 
 const Isr = () => {
   const [data, setData] = useState([]);
@@ -107,7 +108,9 @@ const Isr = () => {
   return (
     <div>
       <div className="stationary-bar top-bar">CUI</div>
+      
       <div className='content-area'>
+        <img src={Logo} className='logo'/>
         <h1>ISR Facility Component Rating Report</h1>
         <h4>Site: {siteName}</h4>
         <h4>Facility Number: {facilityNumber}</h4>
